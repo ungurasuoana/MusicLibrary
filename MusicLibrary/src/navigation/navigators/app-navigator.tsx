@@ -2,37 +2,30 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AppRouteProps, AppRoutes } from "../routes/app-routes";
 import { AuthScreen } from "../../modules/auth/screens/auth";
 import { NavigationContainer } from '@react-navigation/native';
-import { MusicAppNavigator } from "../../modules/music-library/navigation/navigators/music-navigator";
+import { MainAppNavigator} from "../../modules/music-library/navigation/navigators/main-navigator";
 import { Logo } from "../../assets/icons";
 import { Text, View, StyleSheet } from "react-native";
+import { Login } from "../../modules/auth/screens/login";
+import { UserState, useAuthStore } from "../../modules/auth/store/useAuthStore";
 
 const Stack = createStackNavigator<AppRouteProps>()
 
 export const AppNavigator = () => {
-    const isLoggedIn = true;
-
-    const headerTitleLogo = () =>
-        <View style={styles.headerBox}>
-            <Logo width={25} height={25} />
-            <Text style={styles.headerText}>{AppRoutes.Music}</Text>
-        </View>
-
+    const { user } = useAuthStore((state: UserState) => ({ user: state.user }))
 
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {isLoggedIn ? (
+                {user?.id ? (
                     <Stack.Screen
                         name={AppRoutes.Music}
-                        component={MusicAppNavigator}
-                        options={{
-                            headerTitleAlign: 'left',
-                            headerTitle: headerTitleLogo
-                        }} />
+                        component={MainAppNavigator}
+                        options={{ headerShown: false }}
+                    />
                 ) : (
                     <Stack.Screen
                         name={AppRoutes.Auth}
-                        component={AuthScreen} />
+                        component={Login} />
                 )
                 }
             </Stack.Navigator>
