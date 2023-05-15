@@ -7,7 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 export const EditUser = () => {
     const navigation = useNavigation()
 
-    const { updateUser, user } = useAuthStore((state: UserState) => ({ updateUser: state.updateUser, user: state.user}))
+    const { updateUser, user } = useAuthStore((state: UserState) => ({ 
+        updateUser: state.updateUser, 
+        user: state.user
+    }))
 
     const[email, setEmail] = useState(user?.email  || '')
     const [username, setUsername] = useState(user?.username || '')

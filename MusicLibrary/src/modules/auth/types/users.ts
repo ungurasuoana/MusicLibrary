@@ -1,8 +1,11 @@
+import { MusicListRef } from "../../music-library/types/musicListRef";
+
 export interface Users {
     id: string,
-    email: string,
-    pass: string,
-    profilePicture: string,
-    username: string,
-    favGenre: string[]
+    email: string | undefined,
+    pass: string | undefined,
+    profilePicture: string | undefined,
+    username: string | undefined,
+    favGenre: string[],
+    favSongs: MusicListRef[]
 }

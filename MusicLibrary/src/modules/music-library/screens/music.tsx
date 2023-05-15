@@ -1,29 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native"
-import Modal from "react-native-modal";
+import { MusicList } from "../components/musicList";
+import { SearchBar } from "../components/searchBar";
+import { getMusic } from "../services/music.service";
+import { FilterModal } from "../components/filterModal";
 
 /* 
 endpoint: https://644958ebe7eb3378ca46e9bb.mockapi.io//api/v1/music?
 queryParams: search, page, limit, field-name
-*/ 
+*/
 export const MusicScreen = () => {
-    const [modal, setModal] = useState(false) 
+    const [page, setPage] = useState(1)
+    const [jsonResponse, setJsonResponse] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [loadingMore, setLoadingMore] = useState(false)
+    const [end, setEnd] = useState(false)
+    const [refresh, setRefresh] = useState(false)
+    const [search, setSearch] = useState<string>('')
+    const [dataFilter, setDataFilter] = useState('')
+    const [genreFilter, setGenreFilter] = useState('')
 
-    const showModal = () => { setModal(true) }
-    const hideModal = () => { setModal(false) }
+    const onDatePress = (newDate: string) => {setDataFilter(newDate)}
+    const onGenrePress = (newGenre : string) => {setGenreFilter(newGenre)}
+
+    const onEndReached = () => {
+        if (!loading && !loadingMore && !end) {
+            setPage(page + 1)
+            setLoadingMore(true)
+        }
+    }
+
+    const onRefresh = () => {
+        if (!loading && !loadingMore && !refresh) {
+            setPage(1)
+            setRefresh(true)
+        }
+    }
+
+    useEffect(() => {
+        getMusic(page, search, dataFilter, genreFilter).then((data: []) => {
+            if ((search !== '' || dataFilter !== '' || genreFilter !== '') && page === 1) {
+                setJsonResponse(data)
+                setPage(1)
+            }
+            else 
+            {
+                setJsonResponse([...jsonResponse, ...data])
+            }
+            setLoadingMore(false)
+            setLoading(false)
+            if (data.length === 0) {
+                setEnd(true)
+                console.log('THE END IS HERE')
+            }
+            if (page === 1 && refresh) {
+                setRefresh(false)
+                setEnd(false)
+                console.log('HERE WE ARE REFRESHING')
+            }
+        })
+    }, [page, search, dataFilter, genreFilter])
 
     return (
         <View style={styles.container}>
-            <Pressable style={styles.button} onPress={showModal}>
-                <Text>Show Modal</Text>
-            </Pressable>
-            <Modal style={styles.modalStyle} isVisible={modal}>
-                <View style={styles.view}>
-                   <Pressable style={styles.button} onPress={hideModal}> 
-                    <Text>Hide Modal</Text>
-                    </Pressable>
-                </View>
-            </Modal>
+            <SearchBar search={search} onChangeText={setSearch} />
+            <FilterModal setDataFilter={onDatePress} setGenreFilter={onGenrePress}/>
+            <MusicList
+                data={jsonResponse}
+                loadingMore={loadingMore}
+                onEndReached={onEndReached}
+                refresh={refresh}
+                onRefresh={onRefresh}
+            />
         </View>
     )
 }
@@ -33,29 +81,4 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'pink',
     },
-    modalStyle: {
-        justifyContent: 'flex-end',
-        margin: 0,
-    },
-    text: {
-        color: 'black',
-    },
-    view: {
-        width: '100%',
-        backgroundColor: 'white',
-        height: '50%',
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2,
-        borderRadius: 30
-    },
-    button: {
-        width: 100, 
-        height: 50, 
-        backgroundColor: 'lightblue', 
-        borderRadius: 20 ,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10
-    }
 })

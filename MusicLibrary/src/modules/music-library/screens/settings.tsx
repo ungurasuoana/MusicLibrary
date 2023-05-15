@@ -1,11 +1,27 @@
-import { View, Text, StyleSheet, Pressable } from "react-native"
+import { View, Text, StyleSheet, Pressable, ListRenderItemInfo } from "react-native"
 import { UserState, useAuthStore } from "../../auth/store/useAuthStore"
 import { Avatar } from "../components/avatar"
+import { FlatList } from "react-native-gesture-handler"
+import { GenrePrefItem } from "../components/genrePrefItem"
+import { useEffect } from "react"
 
 export const SettingsScreen = () => {
-    const { setUser, user } = useAuthStore((state: UserState) => ({ setUser: state.setUser, user: state.user }))
+    const genres = ['Metal', 'Rock', 'Indie', 'Hip Hop', 'Electronics', 'Folk', 'Latin', 'Pop', 'Country','Soul']
+
+    const { setUser, user } = useAuthStore((state: UserState) => ({ 
+        setUser: state.setUser, 
+        user: state.user,
+    }))
+
 
     const onPress = () => { setUser(null) }
+
+    // useEffect(() => {
+    //     const favGenre = user?.favGenre.join(', ')
+    // }, [user?.favGenre])
+
+    const renderItem = ({ item }: ListRenderItemInfo<string>) =>
+        <GenrePrefItem data={item}/>
     return (
         <View
             style={styles.container}>
@@ -13,12 +29,18 @@ export const SettingsScreen = () => {
             <View style={styles.textBox}>
             <Text style={styles.text}>{user?.email}</Text>
             <Text>{user?.username}</Text>
-            <Text>{user?.favGenre}</Text>
+            <Text>{user?.favGenre.join(', ')}</Text>
+            <FlatList
+            data={genres}
+            renderItem={renderItem}
+            horizontal={true}
+            />
+            
             </View>
             <Pressable
                 style={styles.button}
                 onPress={onPress}>
-                <Text>Logout</Text>
+                <Text style={{color: 'black'}}>Logout</Text>
             </Pressable>
         </View>
     )
