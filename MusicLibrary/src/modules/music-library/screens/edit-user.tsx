@@ -27,14 +27,21 @@ export const EditUser = () => {
 
     const onPress = async() => {
         if(!user) return
-        const image = await ImagePicker.openPicker({
+        //try {
+            const image = await ImagePicker.openPicker({
             cropping: true,
             width: 150,
             height: 150,
             includeBase64: true,
             mediaType: 'photo'
         })
-        console.log(image)
+    //}
+        // catch(e) {
+        //     console.log(e)
+        // }
+        // finally {
+
+        // }
         const updatedImage = {...user, profilePicture:`data:${image.mime};base64,${image.data}`}
         updateUser(updatedImage)
         navigation.goBack()
@@ -84,12 +91,16 @@ const styles = StyleSheet.create({
         borderWidth: 3,
     },
     title: {
+        color: 'white',
         fontSize: 24,
         textAlign: 'center',
         fontWeight: 'bold',
         marginTop: 10
     },
     textInput: {
+        paddingLeft: 5,
+        color:'white',
+        height: 30,
         borderColor: 'pink',
         borderBottomWidth: 2,
         width: '80%',
@@ -99,10 +110,10 @@ const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 4,
         elevation: 8,
         backgroundColor: 'black',
     },

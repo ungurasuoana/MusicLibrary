@@ -5,7 +5,7 @@ import { FlatList } from "react-native-gesture-handler"
 import { GenrePrefItem } from "../components/genrePrefItem"
 
 export const SettingsScreen = () => {
-    const genres = ['Metal', 'Rock', 'Indie', 'Hip Hop', 'Electronics', 'Folk', 'Latin', 'Pop', 'Country', 'Soul']
+    const genres = ['Metal','Alternative', 'Rock', 'Indie', 'Hip Hop', 'Electronics', 'Folk', 'Latin', 'Pop', 'Country', 'Soul']
 
     const { setUser, user } = useAuthStore((state: UserState) => ({
         setUser: state.setUser,
@@ -73,10 +73,10 @@ export const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 5,
         elevation: 8,
         backgroundColor: 'black',
     },

@@ -41,11 +41,12 @@ export const BottomTabsNavigator = () => {
                     borderRadius: 25,
                     borderColor: 'grey',
                     borderWidth: 1,
+                    paddingTop: 25
                 },
                 tabBarActiveTintColor: 'pink',
                 tabBarLabelStyle:{
                     fontSize: 12,
-                    marginBottom: 2
+                    marginBottom: 2,
                 }
                 // headerStyle: {
                 //         borderBottomLeftRadius: 20,

@@ -19,7 +19,6 @@ export const FavScreen = () => {
                 data={user?.favSongs}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
-                ListEmptyComponent={<ActivityIndicator />}
                 ListHeaderComponent={<Text style={styles.header}>
                     Total number of favorite songs: {user?.favSongs.length}
                 </Text>}

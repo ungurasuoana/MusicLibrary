@@ -39,9 +39,9 @@ export const FilterModal = (props: Props) => {
             setEight(false)
             props.setDataFilter(state)
         }
-        else if (!seventies && !eighties && !nineties) {
-            props.setDataFilter('')
-        }
+        // else if (!seventies && !eighties && !nineties) {
+        //     props.setDataFilter('')
+        // }
     }
 
     const genreFilter = (state: string) => {
@@ -51,7 +51,6 @@ export const FilterModal = (props: Props) => {
             props.setGenreFilter(state)
         }
         else if (state === 'rock') {
-            setRock(!rock)
             setMetal(false)
             setHipHop(false)
             props.setGenreFilter(state)
@@ -61,10 +60,6 @@ export const FilterModal = (props: Props) => {
             setRock(false)
             props.setGenreFilter(state)
         }
-        if (metal == false && rock == false && hiphop == false) {
-            props.setDataFilter('')
-        }
-        console.log(rock)
     }
 
     useEffect(() => {
@@ -84,8 +79,13 @@ export const FilterModal = (props: Props) => {
                     <View style={{ flexDirection: "row" }}>
                         <Pressable
                             onPress={() => {
+                                if(!seventies){
+                                    props.setDataFilter('')
+                                    setSeven(!seventies)
+                                }
+                                else{
                                 setSeven(!seventies),
-                                dateFilter('197')
+                                dateFilter('197')}
                             }}
                             style={() =>
                                 [styles.button,
@@ -96,9 +96,14 @@ export const FilterModal = (props: Props) => {
                                 }, styles.textButton]}>70'</Text>
                         </Pressable>
                         <Pressable
-                            onPress={() => {
+                            onPress={() => {                                
+                                if(!eighties){
+                                props.setDataFilter('')
+                                setEight(!eighties)
+                            }
+                            else{
                                 dateFilter('198'),
-                                    setEight(!eighties)
+                                    setEight(!eighties)}
                             }}
                             style={() =>
                                 [styles.button,
@@ -110,8 +115,13 @@ export const FilterModal = (props: Props) => {
                         </Pressable>
                         <Pressable
                             onPress={() => {
+                                if(!nineties){
+                                    props.setDataFilter('')
+                                    setNine(!nineties)
+                                }
+                                else { 
                                 dateFilter('199')
-                                setNine(!nineties)
+                                setNine(!nineties)}
                             }}
                             style={() =>
                                 [styles.button,
@@ -127,8 +137,13 @@ export const FilterModal = (props: Props) => {
                     <View style={{ flexDirection: 'row' }}>
                         <Pressable
                             onPress={() => {
+                                if(!metal){
+                                    props.setDataFilter('')
+                                    setMetal(!metal)
+                                }
+                                else{
                                 genreFilter('metal')
-                                setMetal(!metal)
+                                setMetal(!metal)}
                             }}
                             style={() =>
                                 [styles.button,
@@ -140,7 +155,13 @@ export const FilterModal = (props: Props) => {
                         </Pressable>
                         <Pressable
                             onPress={() => {
+                                if(!rock){
+                                    props.setDataFilter('')
+                                    setRock(!rock)
+                                }
+                                else{
                                 genreFilter('rock')
+                                setRock(!rock)}
                             }}
                             style={() =>
                                 [styles.button,
@@ -152,8 +173,13 @@ export const FilterModal = (props: Props) => {
                         </Pressable>
                         <Pressable
                             onPress={() => {
+                                if(!hiphop){
+                                    props.setDataFilter('')
+                                    setHipHop(!hiphop)
+                                }
+                                else{
                                 genreFilter('hip hop')
-                                setHipHop(!hiphop)
+                                setHipHop(!hiphop)}
                             }}
                             style={() =>
                                 [styles.button,

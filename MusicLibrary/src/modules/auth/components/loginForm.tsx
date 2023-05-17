@@ -30,6 +30,8 @@ export const LoginForm = (props: Props) => {
                 placeholder="Email"
                 value={email}
                 onChangeText={(value: string) => setEmail(value)}
+                placeholderTextColor='white'
+                autoCapitalize="none"
             />
             <TextInput
                 style={styles.text}
@@ -37,13 +39,15 @@ export const LoginForm = (props: Props) => {
                 value={pass}
                 onChangeText={(value: string) => setPass(value)}
                 secureTextEntry={false}
+                placeholderTextColor='white'
+                autoCapitalize="none"
             />
             </View>
             <Pressable
                 style={styles.button}
                 onPress={onPress}
             >
-                <Text>Login</Text>
+                <Text style={{color: 'white'}}>Login</Text>
             </Pressable>
         </View>
     )
@@ -56,6 +60,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.9)'
     },
     text: {
+        color: 'white',
+        paddingLeft: 5,
+        height: 30,
         borderColor: 'pink',
         borderBottomWidth: 2,
         width: '80%',
@@ -65,10 +72,10 @@ const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 5,
         elevation: 8,
         backgroundColor: 'black',
 
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 50,
         width: 100,
-        height: 50,
+        height: 40,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: 'pink',
@@ -86,10 +93,10 @@ const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 6,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 5,
         elevation: 8,
         backgroundColor: 'black',
     },

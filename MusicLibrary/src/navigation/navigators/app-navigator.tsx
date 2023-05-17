@@ -6,6 +6,7 @@ import { MainAppNavigator} from "../../modules/music-library/navigation/navigato
 import { Text, View, StyleSheet } from "react-native";
 import { Login } from "../../modules/auth/screens/login";
 import { UserState, useAuthStore } from "../../modules/auth/store/useAuthStore";
+import RNBootSplash from "react-native-bootsplash";
 
 const Stack = createStackNavigator<AppRouteProps>()
 
@@ -13,7 +14,11 @@ export const AppNavigator = () => {
     const { user } = useAuthStore((state: UserState) => ({ user: state.user }))
 
     return (
-        <NavigationContainer>
+        <NavigationContainer
+        onReady={ () => RNBootSplash.hide({
+            fade: true,
+            duration: 500
+        })}>
             <Stack.Navigator>
                 {user?.id ? (
                     <Stack.Screen

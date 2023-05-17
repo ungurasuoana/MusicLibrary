@@ -2,56 +2,58 @@ import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react
 import { HeartEmpty, HeartFull } from "../../../assets/icons"
 import { UserState, useAuthStore } from "../../auth/store/useAuthStore"
 import { useEffect, useState } from "react"
+import Animated,
+{ BounceIn, BounceOut, FadeInDown, FadeInLeft, FadeInRight, FadeOut, FadeOutLeft, FadeOutUp } from "react-native-reanimated"
 
 export const CardDetails = (props: any) => {
     const { id, title, artist, coverPhoto, genre, description, releaseDate } = props?.route.params
-   // useEffect(() => { console.log(props.route.params) }, [])
+    // useEffect(() => { console.log(props.route.params) }, [])
 
-   const [like, setLike] = useState(false)
+    const [like, setLike] = useState(false)
 
-    const {updateFavs, user} = useAuthStore((state: UserState) => ({
+    const { updateFavs, user } = useAuthStore((state: UserState) => ({
         updateFavs: state.updateFavs,
         user: state.user,
     }))
 
-   useEffect(() => {
-    const likeState = user?.favSongs.find(item => item.id === id)
-    if(likeState) {
-        setLike(true)
-    } else {
-        setLike(false)
-    }
-   }, [like]) 
+    useEffect(() => {
+        const likeState = user?.favSongs.find(item => item.id === id)
+        if (likeState) {
+            setLike(true)
+        } else {
+            setLike(false)
+        }
+    }, [like])
 
-   const onLike = () => {
-    if(!user) return    
-    updateFavs(user, props?.route.params)
-   }
+    const onLike = () => {
+        if (!user) return
+        updateFavs(user, props?.route.params)
+    }
 
     return (
         <View style={styles.imgContainer}>
-            <ImageBackground style={styles.img} source={{uri: coverPhoto}}>
-                <Pressable 
-                onPress={() => {onLike(), setLike(!like)}}
-                style={styles.icon}>
-                    {like?  
-                    <HeartFull height={30} width={30}/> :
-                    <HeartEmpty height={30} width={30}/>
-                }
+            <ImageBackground style={styles.img} source={{ uri: coverPhoto }}>
+                <Pressable
+                    onPress={() => { onLike(), setLike(!like) }}
+                    style={styles.icon}>
+                    {like ?
+                        <Animated.View key={1} entering={FadeInDown}><HeartFull height={30} width={30} /></Animated.View> :
+                        <Animated.View key={2} exiting={FadeOutUp}><HeartEmpty height={30} width={30} /></Animated.View>
+                    }
                 </Pressable>
             </ImageBackground>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.detailsBox}>
-            <Text style={styles.description}>Artist: {artist}</Text>
+                <Text style={styles.description}>Artist: {artist}</Text>
             </View>
             <View style={styles.detailsBox}>
-            <Text style={styles.description}>Description: {description}</Text>
+                <Text style={styles.description}>Description: {description}</Text>
             </View>
             <View style={styles.detailsBox}>
-            <Text style={styles.description}>Genre: {genre}</Text>
+                <Text style={styles.description}>Genre: {genre}</Text>
             </View>
             <View style={styles.detailsBox}>
-            <Text style={styles.description}>Release date: {releaseDate.slice(0,10)}</Text>
+                <Text style={styles.description}>Release date: {releaseDate.slice(0, 10)}</Text>
             </View>
         </View>
     )
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         //shadowRadius: 16.00,
         elevation: 16,
-        marginBottom:30,
+        marginBottom: 30,
         marginTop: 20,
         borderWidth: 1,
         borderColor: "black"
@@ -110,10 +112,10 @@ const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 4,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 5,
         elevation: 3,
         backgroundColor: 'black',
         alignItems: 'center'

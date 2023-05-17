@@ -1,5 +1,5 @@
 export enum MainRoutes {
-    BottomTab = 'ButtomTab',
+    BottomTab = 'BottomTab',
     EditUser = 'Edit User',
     CardDetails = 'Song Details',
 }

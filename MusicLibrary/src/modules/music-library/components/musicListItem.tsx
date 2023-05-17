@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
         shadowColor: "pink",
         shadowOffset: {
             width: 0,
-            height: 12,
+            height: 2,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 5,
         elevation: 3,
         backgroundColor: 'black',
         alignItems: 'center'
