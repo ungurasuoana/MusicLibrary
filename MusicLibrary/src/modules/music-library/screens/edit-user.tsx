@@ -44,7 +44,7 @@ export const EditUser = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Edit User Info</Text>
             <Pressable style={styles.avatar} onPress={onPress}>
-                <Text>Change Picture</Text>
+                <Text style={styles.picText}>Change Picture</Text>
             </Pressable>
             <TextInput
             style={styles.textInput}
@@ -58,7 +58,7 @@ export const EditUser = () => {
             onChangeText={onChangeUser}/>
             <Pressable style={styles.button}
             onPress={onSaveChanges}>
-                <Text>Save Changes</Text>
+                <Text style={styles.picText}>Save Changes</Text>
             </Pressable>
         </View>
     )
@@ -67,18 +67,20 @@ export const EditUser = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'lightblue',
+        backgroundColor: 'rgba(0,0,0,0.9)',
         alignItems: 'center',
+        paddingTop: 10,
     },
     avatar: {
-        marginTop: 20,
+        marginTop: 30,
+        marginBottom: 30,
         backgroundColor: 'white',
         borderRadius: 75,
         width: 150,
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: 'black',
+        borderColor: 'pink',
         borderWidth: 3,
     },
     title: {
@@ -88,11 +90,21 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     textInput: {
-        borderColor: 'black',
+        borderColor: 'pink',
         borderBottomWidth: 2,
         width: '80%',
         fontSize: 16,
-        marginTop: 20
+        marginTop: 20,
+        borderRadius: 10,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 8,
+        backgroundColor: 'black',
     },
     button: {
         width: 100,
@@ -101,6 +113,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        marginTop: 20
+        marginTop: 50,
+        borderColor: 'white',
+        borderWidth: 1,
+    },
+    picText:{
+        color: 'black',
     }
 })

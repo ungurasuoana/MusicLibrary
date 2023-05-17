@@ -11,84 +11,82 @@ interface Props {
 export const MusicFavItem = (props: Props) => {
     const [like, setLike] = useState(false)
 
-    const {updateFavs, user} = useAuthStore((state: UserState) => ({
+    const { updateFavs, user } = useAuthStore((state: UserState) => ({
         updateFavs: state.updateFavs,
         user: state.user,
     }))
 
-   useEffect(() => {
-    const likeState = user?.favSongs.find(item => item.id === props.item.id)
-    if(likeState) {
-        setLike(true)
-    } else {
-        setLike(false)
+    useEffect(() => {
+        const likeState = user?.favSongs.find(item => item.id === props.item.id)
+        if (likeState) {
+            setLike(true)
+        } else {
+            setLike(false)
+        }
+    }, [like])
+
+    const onLike = () => {
+        if (!user) return
+        updateFavs(user, props?.item)
     }
-   }, [like]) 
 
-   const onLike = () => {
-    if(!user) return    
-    updateFavs(user, props?.item)
-   }
-
-    return(
+    return (
         <View style={styles.container}>
-        <ImageBackground style={styles.img} source={{uri: props.item.coverPhoto}}>
-                <Pressable 
-                onPress={() => {onLike(), setLike(!like)}}
+            <ImageBackground style={styles.img} source={{ uri: props.item.coverPhoto }} />
+            <View style={styles.detailsContainer}>
+                <Text style={styles.title}>
+                    {props.item.title} - {props.item.artist}
+                </Text>
+                <Text style={styles.description}>
+                    {props.item.genre}
+                </Text>
+                <Text style={styles.description}>
+                    {props.item.releaseDate.slice(0, 10)}
+                </Text>
+            </View>
+            <Pressable
+                onPress={() => { onLike(), setLike(!like) }}
                 style={styles.icon}>
-                    {like?  
-                    <HeartFull height={40} width={40}/> :
-                    <HeartEmpty height={40} width={40}/>
+                {like ?
+                    <HeartFull height={30} width={30} /> :
+                    <HeartEmpty height={30} width={30} />
                 }
-                </Pressable>
-            </ImageBackground>
-        <Text style={styles.title}>
-            {props.item.title} - {props.item.artist}
-        </Text>
-        <Text style={styles.description}>
-            {props.item.genre}
-        </Text>
-        <Text style={styles.description}>
-            {props.item.releaseDate.slice(0,10)}
-        </Text>
-    </View>
+            </Pressable>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        margin: 8
+        margin: 5,
+        padding: 5,
+        flexDirection: 'row',
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: 'pink',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        alignItems: 'center'
     },
-    imgContainer: {
-        borderRadius: 30,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        elevation: 24,
+    detailsContainer: {
+        marginLeft: 10,
+        width: '70%'
     },
     img: {
-        width: 350,
-        height: 250,
-        borderRadius: 30,
+        width: 60,
+        height: 60,
+        borderRadius: 10,
         overflow: 'hidden',
-        alignItems: 'flex-end'
+        marginLeft: 1
     },
     icon: {
-        marginTop: 10,
-        marginRight: 10,
+//
     },
     title: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: 'black',
-        textAlign: 'center'
+        color: 'white',
     },
     description: {
-        color: 'black'
+        color: 'white'
     },
 })

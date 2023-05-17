@@ -1,42 +1,49 @@
 import { useState } from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
+import { Logo } from "../../../assets/icons"
 
 interface Props {
     onPress: (email: string, pass: string) => void
 }
 
-export const LoginForm = (props:Props) => {
+export const LoginForm = (props: Props) => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    
+
     const onPress = () => {
         props.onPress(email, pass)
     }
 
-    
 
-    return(
-        <View
-        style={styles.container}>
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.headerBox}>
+                <Logo width={35} height={35} />
+                <Text style={styles.headerText}>PlayMusic</Text>
+            </View>
+            <Text style={styles.headerText}>Login</Text>
+            <View style={styles.middleBox}>
             <TextInput
-            style={styles.text}
-            placeholder="Email"
-            value={email}
-            onChangeText={(value:string) => setEmail(value)}
+                style={styles.text}
+                placeholder="Email"
+                value={email}
+                onChangeText={(value: string) => setEmail(value)}
             />
             <TextInput
-            style={styles.text}
-            placeholder="Password"
-            value={pass}
-            onChangeText={(value:string) => setPass(value)}
-            secureTextEntry={false}
+                style={styles.text}
+                placeholder="Password"
+                value={pass}
+                onChangeText={(value: string) => setPass(value)}
+                secureTextEntry={false}
             />
+            </View>
             <Pressable
-            style={styles.button}
-            onPress={onPress}
+                style={styles.button}
+                onPress={onPress}
             >
-               <Text>Login</Text> 
+                <Text>Login</Text>
             </Pressable>
         </View>
     )
@@ -45,22 +52,63 @@ export const LoginForm = (props:Props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.9)'
     },
     text: {
-        color: 'black',
-        width: '80%',
+        borderColor: 'pink',
         borderBottomWidth: 2,
-        height: 40,
+        width: '80%',
+        fontSize: 16,
+        marginTop: 20,
+        borderRadius: 10,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 8,
+        backgroundColor: 'black',
+
     },
     button: {
-        marginTop: 20,
-        backgroundColor:'pink',
-        borderRadius: 50,
-        width: 80,
+        marginTop: 50,
+        width: 100,
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderColor: 'pink',
+        borderBottomWidth: 2,
+        fontSize: 16,
+        borderRadius: 30,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 8,
+        backgroundColor: 'black',
+    },
+    headerBox: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        flex: 0.3,
+        justifyContent: 'flex-end',
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 30,
+        left: 5,
+        fontWeight: 'bold'
+    },
+    middleBox: {
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        width: '100%',
+        flex: 0.3
     }
 })

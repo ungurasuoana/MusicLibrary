@@ -30,6 +30,7 @@ export const MusicList = (props: Props) => {
                 refreshing={props.refresh}
                 onRefresh={props.onRefresh}
                 ListEmptyComponent={<ActivityIndicator/>}
+                ItemSeparatorComponent={() => <View style={styles.itemSeparator}/>}
                 contentContainerStyle={ 
                     !props.data?.length ?
                     {flex:1, justifyContent:'center'} :
@@ -42,7 +43,22 @@ export const MusicList = (props: Props) => {
 
 const styles = StyleSheet.create({
     list: {
-        backgroundColor: '#eee3ff',
+        backgroundColor: 'black',
         flex: 1
     },
+    itemSeparator: {
+        height: 1,
+        width: '98%',
+        backgroundColor: 'transparent',
+        alignItems: 'center',
+        borderRadius: 30,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 16.00,
+        elevation: 1,
+    }
 })

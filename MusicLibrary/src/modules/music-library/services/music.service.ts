@@ -3,20 +3,18 @@ export const getMusic = async(
     search: string, 
     dataFilter: string,
     genreFilter: string) => {
-    let url = `https://645936c98badff578e07caaa.mockapi.io/music?`
+    let url = `https://645936c98badff578e07caaa.mockapi.io/music?&page=${page}&limit=10&genre=${genreFilter}&releaseDate=${dataFilter}&title=${search}`
     
-    if(genreFilter !== '') {
-        url = url + `&genre=${genreFilter}`
-    }
-    if(dataFilter !== '') {
-        url = url + `&releaseDate=${dataFilter}`
-    }
-    if(search !== '') {
-        url = url + `&title=${search}`
-    }
-    else {
-        url = url + `&page=${page}&limit=10`
-    }
+    // if(genreFilter == '') {
+    //     url = url 
+    // }
+    // if(dataFilter !== '') {
+    //     url = url + `&releaseDate=${dataFilter}`
+    // }
+    // if(search !== '') {
+    //     url = url + `&title=${search}`
+    // }
+    
     const response = await fetch(url)
     console.log(url)
     const json = await response.json()

@@ -10,14 +10,17 @@ export const MusicListItem = (props: Props) => {
     return (
         <Pressable style={styles.container} onPress={props.onPress}>
             <Image style={styles.img} source={{ uri: props.item.coverPhoto }} />
+            <View style={styles.detailsContainer}>
             <Text style={styles.title}>
-                {props.item.title} - {props.item.artist}
+                {props.item.title} 
             </Text>
-            <Text style={styles.description}>
-                {props.item.genre}
-            </Text>
+            <Text style={styles.description}>{props.item.artist}</Text>
             <Text style={styles.description}>
                 {props.item.releaseDate.slice(0,10)}
+            </Text>
+            </View>
+            <Text style={[styles.description, {alignItems:'flex-start', color:'pink'}]}>
+                {props.item.genre.slice(0,10)}
             </Text>
         </Pressable>
     )
@@ -25,38 +28,37 @@ export const MusicListItem = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        margin: 8
-    },
-    imgContainer: {
-        borderRadius: 30,
-        shadowColor: "#000",
+        margin: 8,
+        flexDirection: 'row',
+        borderRadius: 10,
+        shadowColor: "pink",
         shadowOffset: {
             width: 0,
             height: 12,
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
-        elevation: 24,
+        elevation: 3,
+        backgroundColor: 'black',
+        alignItems: 'center'
     },
+    detailsContainer: {
+        marginLeft: 10,
+        width: '60%'   
+     },
     img: {
-        width: 350,
-        height: 250,
-        borderRadius: 30,
+        width: 60,
+        height: 60,
+        borderRadius: 10,
         overflow: 'hidden',
-    },
-    icon: {
-        width: 40,
-        height: 40,
-        resizeMode: 'contain'
+        marginLeft: 1
     },
     title: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: 'black',
-        textAlign: 'center'
+        color: 'white',
     },
     description: {
-        color: 'black'
+        color: 'white'
     },
 })

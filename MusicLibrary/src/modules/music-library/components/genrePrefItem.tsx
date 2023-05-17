@@ -29,26 +29,34 @@ export const GenrePrefItem = (props: Props) => {
    }
     return(
         <Pressable onPress={() => {onPress(), setPress(!press)}}
-        style={() => [
+        style={[
             {
-                 backgroundColor: press? 'white' : 'grey'
+                 backgroundColor: press? 'white' : 'rgba(159, 168, 181, 0.6)',
+                 borderColor: press? 'black' : 'white' 
             },
             styles.button]
             }>
-            <Text style={styles.text}>{props.data}</Text>
+            <Text         
+            style={[{
+                color: press? 'black' : 'white',   
+                },styles.text]}
+            >{props.data}</Text>
         </Pressable>
     )
 }
 
 const styles = StyleSheet.create({
     button: {
-        width: 100,
-        height: 50,
-        borderRadius: 25,
+        width: 80,
+        height: 40,
+        borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 2,
+        borderWidth: 0.5,
     },
     text: {
-        color: 'black',
+        fontSize: 14,
+        fontWeight: 'bold',
     }
 })

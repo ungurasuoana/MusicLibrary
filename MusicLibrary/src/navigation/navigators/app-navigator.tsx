@@ -3,7 +3,6 @@ import { AppRouteProps, AppRoutes } from "../routes/app-routes";
 import { AuthScreen } from "../../modules/auth/screens/auth";
 import { NavigationContainer } from '@react-navigation/native';
 import { MainAppNavigator} from "../../modules/music-library/navigation/navigators/main-navigator";
-import { Logo } from "../../assets/icons";
 import { Text, View, StyleSheet } from "react-native";
 import { Login } from "../../modules/auth/screens/login";
 import { UserState, useAuthStore } from "../../modules/auth/store/useAuthStore";
@@ -25,7 +24,10 @@ export const AppNavigator = () => {
                 ) : (
                     <Stack.Screen
                         name={AppRoutes.Auth}
-                        component={Login} />
+                        component={Login}
+                        options={{
+                            headerShown: false
+                        }} />
                 )
                 }
             </Stack.Navigator>

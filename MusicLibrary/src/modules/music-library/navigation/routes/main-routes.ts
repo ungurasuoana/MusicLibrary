@@ -1,7 +1,7 @@
 export enum MainRoutes {
     BottomTab = 'ButtomTab',
-    EditUser = 'EditUser',
-    CardDetails = 'CardDetails',
+    EditUser = 'Edit User',
+    CardDetails = 'Song Details',
 }
 
 export type MainProps = {

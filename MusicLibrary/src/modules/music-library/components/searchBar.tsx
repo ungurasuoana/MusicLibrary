@@ -14,7 +14,6 @@ export const SearchBar = (props:Props) => {
             onChangeText={props.onChangeText}
             placeholder="search for a song..."
             placeholderTextColor={'grey'}
-            
             />
         </View>
     )
@@ -22,17 +21,18 @@ export const SearchBar = (props:Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'pink', 
+        flex: 3,
+        backgroundColor: 'transparent', 
         height: 60, 
         justifyContent: 'center', 
         alignItems: 'center'
     },
     search:{
-        width: '90%', 
         height: 40,
         backgroundColor: 'white',
         color: 'black',
         paddingLeft: 10,
-        borderRadius: 20
+        borderRadius: 15,
+        width: '98%'
     }
 })

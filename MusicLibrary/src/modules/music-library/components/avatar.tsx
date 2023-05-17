@@ -13,7 +13,7 @@ export const Avatar = (props: Props) => {
                 <Image style={styles.image} source={{ uri: props.user?.profilePicture }} />
             ) : (
                 <Text style={styles.text}>
-                    {props.user?.username.slice(0, 1)}
+                    {props.user?.username?.slice(0, 1)}
                 </Text>
             )
             }
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 3,
+        borderColor: 'pink',
+        borderWidth: 2,
         overflow: 'hidden'
     },
     text: {

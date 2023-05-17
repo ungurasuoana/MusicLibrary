@@ -28,8 +28,6 @@ export const CardDetails = (props: any) => {
     updateFavs(user, props?.route.params)
    }
 
-//useEffect(() => console.log(user?.favSongs),[])
-
     return (
         <View style={styles.imgContainer}>
             <ImageBackground style={styles.img} source={{uri: coverPhoto}}>
@@ -37,37 +35,34 @@ export const CardDetails = (props: any) => {
                 onPress={() => {onLike(), setLike(!like)}}
                 style={styles.icon}>
                     {like?  
-                    <HeartFull height={40} width={40}/> :
-                    <HeartEmpty height={40} width={40}/>
+                    <HeartFull height={30} width={30}/> :
+                    <HeartEmpty height={30} width={30}/>
                 }
                 </Pressable>
             </ImageBackground>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{artist}</Text>
-            <Text style={styles.description}>{genre}</Text>
-            <Text style={styles.description}>{description}</Text>
-            <Text style={styles.description}>{releaseDate.slice(0,10)}</Text>
+            <View style={styles.detailsBox}>
+            <Text style={styles.description}>Artist: {artist}</Text>
+            </View>
+            <View style={styles.detailsBox}>
+            <Text style={styles.description}>Description: {description}</Text>
+            </View>
+            <View style={styles.detailsBox}>
+            <Text style={styles.description}>Genre: {genre}</Text>
+            </View>
+            <View style={styles.detailsBox}>
+            <Text style={styles.description}>Release date: {releaseDate.slice(0,10)}</Text>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     imgContainer: {
-        borderRadius: 25,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        elevation: 24,
-        borderColor: 'black',
-        borderWidth: 1,
-        justifyContent: 'center',
+        flex: 1,
+        //justifyContent: 'center',
         alignItems: 'center',
-        margin: 10,
-        backgroundColor: '#eee3ff',
+        backgroundColor: 'rgba(0, 0, 0,0.9)',
         paddingHorizontal: 5,
         paddingTop: 10,
         paddingBottom: 10,
@@ -75,23 +70,52 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: 'black',
+        color: 'pink',
         textAlign: 'center',
-        marginBottom: 5
+        marginBottom: 20,
     },
     description: {
-        color: 'black',
-        fontSize: 16
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
     },
     img: {
-        width: 350,
-        height: 250,
-        borderRadius: 30,
+        width: 300,
+        height: 300,
         overflow: 'hidden',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        borderRadius: 25,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 60,
+            height: 20,
+        },
+        shadowOpacity: 1,
+        //shadowRadius: 16.00,
+        elevation: 16,
+        marginBottom:30,
+        marginTop: 20,
+        borderWidth: 1,
+        borderColor: "black"
     },
     icon: {
         marginTop: 10,
         marginRight: 10,
+    },
+    detailsBox: {
+        width: '90%',
+        margin: 5,
+        padding: 5,
+        borderRadius: 10,
+        shadowColor: "pink",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 3,
+        backgroundColor: 'black',
+        alignItems: 'center'
     }
 })

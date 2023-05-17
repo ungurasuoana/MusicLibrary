@@ -13,8 +13,26 @@ export const MainAppNavigator = () => {
         <Stack.Navigator>
             <Stack.Screen name={MainRoutes.BottomTab} component={BottomTabsNavigator}
             options={{ headerShown: false }}/>
-            <Stack.Screen name={MainRoutes.EditUser} component={EditUser}/>
-            <Stack.Screen name={MainRoutes.CardDetails} component={CardDetails}/>
+            <Stack.Screen name={MainRoutes.EditUser} component={EditUser}
+                        options={{
+                            headerStyle:{
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerTintColor: 'pink'
+                        }}/>
+            <Stack.Screen name={MainRoutes.CardDetails} component={CardDetails}
+            options={{
+                headerStyle:{
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                },
+                headerTitleStyle: {
+                    color: 'white'
+                },
+                headerTintColor: 'pink'
+            }}/>
         </Stack.Navigator>
     )
 } 

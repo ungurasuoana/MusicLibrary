@@ -4,6 +4,7 @@ import { MusicList } from "../components/musicList";
 import { SearchBar } from "../components/searchBar";
 import { getMusic } from "../services/music.service";
 import { FilterModal } from "../components/filterModal";
+import { useDebounce } from "../hooks/useDebounce";
 
 /* 
 endpoint: https://644958ebe7eb3378ca46e9bb.mockapi.io//api/v1/music?
@@ -20,6 +21,8 @@ export const MusicScreen = () => {
     const [dataFilter, setDataFilter] = useState('')
     const [genreFilter, setGenreFilter] = useState('')
 
+    const searchVal = useDebounce(search, 1000)
+
     const onDatePress = (newDate: string) => {setDataFilter(newDate)}
     const onGenrePress = (newGenre : string) => {setGenreFilter(newGenre)}
 
@@ -34,17 +37,20 @@ export const MusicScreen = () => {
         if (!loading && !loadingMore && !refresh) {
             setPage(1)
             setRefresh(true)
+            setSearch('')
+            setDataFilter('')
+            setGenreFilter('')
         }
     }
+    console.log(genreFilter)
 
     useEffect(() => {
         getMusic(page, search, dataFilter, genreFilter).then((data: []) => {
             if ((search !== '' || dataFilter !== '' || genreFilter !== '') && page === 1) {
                 setJsonResponse(data)
-                setPage(1)
             }
             else 
-            {
+            {   
                 setJsonResponse([...jsonResponse, ...data])
             }
             setLoadingMore(false)
@@ -59,12 +65,18 @@ export const MusicScreen = () => {
                 console.log('HERE WE ARE REFRESHING')
             }
         })
-    }, [page, search, dataFilter, genreFilter])
+    }, [page, searchVal, dataFilter, genreFilter])
+
+    useEffect(() => {
+        setPage(1);
+      }, [searchVal, dataFilter , genreFilter]);
 
     return (
         <View style={styles.container}>
+            <View style={styles.topContainer}>
             <SearchBar search={search} onChangeText={setSearch} />
             <FilterModal setDataFilter={onDatePress} setGenreFilter={onGenrePress}/>
+            </View>
             <MusicList
                 data={jsonResponse}
                 loadingMore={loadingMore}
@@ -79,6 +91,12 @@ export const MusicScreen = () => {
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'pink',
+        backgroundColor: 'black',
     },
+    topContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItem: 'center',
+        height: 60,
+    }
 })

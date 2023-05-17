@@ -6,24 +6,23 @@ import { MusicFavItem } from "../components/musicFavItem"
 
 export const FavScreen = () => {
 
-    const {user, updateFavs} = useAuthStore((state: UserState) => ({
+    const { user, updateFavs } = useAuthStore((state: UserState) => ({
         user: state.user,
         updateFavs: state.updateFavs
     }))
-
-    useEffect(() => {
-        console.log(user?.favSongs)
-    })
 
     const renderItem = ({ item }: ListRenderItemInfo<MusicListRef>) =>
         <MusicFavItem item={item} />
     return (
         <View style={styles.container}>
             <FlatList
-            data={user?.favSongs}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={<ActivityIndicator/>}
+                data={user?.favSongs}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index.toString()}
+                ListEmptyComponent={<ActivityIndicator />}
+                ListHeaderComponent={<Text style={styles.header}>
+                    Total number of favorite songs: {user?.favSongs.length}
+                </Text>}
             />
         </View>
     )
@@ -31,7 +30,15 @@ export const FavScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#eee3ff',
+        backgroundColor: 'black',
         flex: 1
     },
+    header: {
+        fontSize: 20,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginTop: 10,
+    }
 })

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import Modal from "react-native-modal";
+import { DropIcon, FilterIcon } from "../../../assets/icons";
 
 interface Props {
     setDataFilter: (value: string) => void
@@ -19,6 +20,9 @@ export const FilterModal = (props: Props) => {
     const showModal = () => { setModal(true) }
     const hideModal = () => { setModal(false) }
 
+    useEffect(() => {
+        dateFilter
+    }, [seventies, eighties, nineties])
     const dateFilter = (state: string) => {
         if (state === '197') {
             setEight(false)
@@ -35,7 +39,7 @@ export const FilterModal = (props: Props) => {
             setEight(false)
             props.setDataFilter(state)
         }
-        else if (seventies == false && eighties == false && nineties == false) {
+        else if (!seventies && !eighties && !nineties) {
             props.setDataFilter('')
         }
     }
@@ -47,6 +51,7 @@ export const FilterModal = (props: Props) => {
             props.setGenreFilter(state)
         }
         else if (state === 'rock') {
+            setRock(!rock)
             setMetal(false)
             setHipHop(false)
             props.setGenreFilter(state)
@@ -56,35 +61,39 @@ export const FilterModal = (props: Props) => {
             setRock(false)
             props.setGenreFilter(state)
         }
-        else if (metal == false && rock == false && hiphop == false) {
+        if (metal == false && rock == false && hiphop == false) {
             props.setDataFilter('')
         }
+        console.log(rock)
     }
+
+    useEffect(() => {
+        if (metal && rock  && hiphop ) {
+            props.setDataFilter('')
+        }
+    },[metal,rock,hiphop])
+
     return (
         <View style={styles.container}>
-            <Pressable style={styles.button} onPress={showModal}>
-                <Text>Show Modal</Text>
+            <Pressable style={styles.filter} onPress={showModal}>
+                <FilterIcon width={20} height={20} />
             </Pressable>
             <Modal style={styles.modalStyle} isVisible={modal}>
                 <View style={styles.view}>
-                    <Pressable style={styles.button} onPress={hideModal}>
-                        <Text>Hide Modal</Text>
-                    </Pressable>
-
                     <Text style={styles.text}>Filter by age</Text>
                     <View style={{ flexDirection: "row" }}>
                         <Pressable
                             onPress={() => {
-                                dateFilter('197'),
-                                    setSeven(!seventies)
+                                setSeven(!seventies),
+                                dateFilter('197')
                             }}
                             style={() =>
                                 [styles.button,
-                                {
-                                    backgroundColor: seventies ? 'red' : 'lightblue',
-                                }
-                                ]}>
-                            <Text>70'</Text>
+                                    {borderColor: seventies ? 'white' : 'black'}
+                                    ]}>
+                                <Text style={[{
+                                    fontWeight: seventies ? 'bold' : 'normal',
+                                }, styles.textButton]}>70'</Text>
                         </Pressable>
                         <Pressable
                             onPress={() => {
@@ -93,11 +102,11 @@ export const FilterModal = (props: Props) => {
                             }}
                             style={() =>
                                 [styles.button,
-                                {
-                                    backgroundColor: eighties ? 'red' : 'lightblue',
-                                }
-                                ]}>
-                            <Text>80'</Text>
+                                    {borderColor: eighties ? 'white' : 'black'}
+                                    ]}>
+                                <Text style={[{
+                                    fontWeight: eighties ? 'bold' : 'normal',
+                                }, styles.textButton]}>80'</Text>
                         </Pressable>
                         <Pressable
                             onPress={() => {
@@ -106,11 +115,11 @@ export const FilterModal = (props: Props) => {
                             }}
                             style={() =>
                                 [styles.button,
-                                {
-                                    backgroundColor: nineties ? 'red' : 'lightblue',
-                                }
-                                ]}>
-                            <Text>90'</Text>
+                                    {borderColor: nineties ? 'white' : 'black'}
+                                    ]}>
+                                <Text style={[{
+                                    fontWeight: nineties ? 'bold' : 'normal',
+                                }, styles.textButton]}>90'</Text>
                         </Pressable>
                     </View>
 
@@ -123,24 +132,23 @@ export const FilterModal = (props: Props) => {
                             }}
                             style={() =>
                                 [styles.button,
-                                {
-                                    backgroundColor: metal ? 'red' : 'lightblue',
-                                }
-                                ]}>
-                            <Text>metal</Text>
+                                    {borderColor: metal ? 'white' : 'black'}
+                                    ]}>
+                                <Text style={[{
+                                    fontWeight: metal ? 'bold' : 'normal',
+                                }, styles.textButton]}>metal</Text>
                         </Pressable>
                         <Pressable
                             onPress={() => {
                                 genreFilter('rock')
-                                setRock(!rock)
                             }}
                             style={() =>
                                 [styles.button,
-                                {
-                                    backgroundColor: rock ? 'red' : 'lightblue',
-                                }
+                                {borderColor: rock ? 'white' : 'black'}
                                 ]}>
-                            <Text>rock</Text>
+                            <Text style={[{
+                                fontWeight: rock ? 'bold' : 'normal',
+                            }, styles.textButton]}>rock</Text>
                         </Pressable>
                         <Pressable
                             onPress={() => {
@@ -150,13 +158,18 @@ export const FilterModal = (props: Props) => {
                             style={() =>
                                 [styles.button,
                                 {
-                                    backgroundColor: hiphop ? 'red' : 'lightblue',
+                                    borderColor: hiphop ? 'white' : 'black',
                                 }
                                 ]}>
-                            <Text>hip-hop</Text>
+                            <Text style={[{
+                                fontWeight: hiphop ? 'bold' : 'normal',
+                            }, styles.textButton]}>hip-hop</Text>
                         </Pressable>
                     </View>
-                                {/* <Pressable 
+                    <Pressable onPress={hideModal}>
+                        <DropIcon width={35} height={100}/>
+                    </Pressable>
+                    {/* <Pressable 
                                 onPress={() => {
                                     dateFilter(''),
                                     genreFilter('')
@@ -173,31 +186,50 @@ export const FilterModal = (props: Props) => {
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'pink',
+        backgroundColor: 'transparent',
+        justifyContent: 'center'
     },
     modalStyle: {
-        justifyContent: 'flex-end',
-        margin: 0,
+        justifyContent: 'flex-start',
+        marginTop: 200,
     },
     text: {
-        color: 'black',
+        color: 'white',
+        marginTop: 10,
+        fontWeight: 'bold',
     },
     view: {
         width: '100%',
-        backgroundColor: 'white',
-        height: '50%',
+        backgroundColor: 'black',
+        height: '40%',
         alignItems: 'center',
-        borderColor: 'black',
+        borderColor: 'white',
         borderWidth: 2,
+        borderRadius: 40,
+        borderBottomRightRadius: 70,
+        borderBottomLeftRadius: 70
+    },
+    filter: {
+        height: 40,
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
         borderRadius: 30
     },
     button: {
-        width: 100,
-        height: 50,
+        width: 80,
+        height: 40,
         backgroundColor: 'lightblue',
-        borderRadius: 20,
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10
+        margin: 2,
+        marginTop: 10,
+        borderWidth: 3
+    },
+    textButton: {
+        fontSize: 14,
+        color: 'white'
     }
 })

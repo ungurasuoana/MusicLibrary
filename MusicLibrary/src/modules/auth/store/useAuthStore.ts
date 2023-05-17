@@ -22,7 +22,7 @@ const dummyData: Users[] = [
         pass: 'a',
         profilePicture: '',
         username: 'Oanana U',
-        favGenre: ['indie', 'alternative'],
+        favGenre: ['Indie', 'Alternative'],
         favSongs: []
     },
     {
@@ -31,7 +31,7 @@ const dummyData: Users[] = [
         pass: 'aaa',
         profilePicture: '',
         username: 'Banana U',
-        favGenre: ['indie', 'alternative'],
+        favGenre: ['Indie', 'Alternative'],
         favSongs: []
     },
     {
@@ -40,7 +40,7 @@ const dummyData: Users[] = [
         pass: 'lll',
         profilePicture: '',
         username: 'Lanana U',
-        favGenre: ['indie', 'alternative'],
+        favGenre: ['Indie', 'Alternative'],
         favSongs: []
     }
 ]
@@ -103,7 +103,7 @@ export const useAuthStore = create(
             }
         }),
         {
-            name: 'auth-storage-4',
+            name: 'auth-storage-5',
             storage: createJSONStorage(() => zustandStorage)
         }
     )
